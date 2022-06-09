@@ -7,9 +7,8 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Ecosia-Clone API')
-    // .setDescription('The cats API description')
+    .setDescription('The Ecosia-Clone API description')
     .setVersion('1.0')
-    // .addTag('cats')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
