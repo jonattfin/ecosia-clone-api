@@ -4,9 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProjectsModule } from './projects/projects.module';
 import { TagsModule } from './tags/tags.module';
-
-import { Tag } from './tags/entities/tag.entity';
-import { Project } from './projects/entities/project.entity';
+import { Project, Tag } from './_shared/entities';
 
 @Module({
   imports: [

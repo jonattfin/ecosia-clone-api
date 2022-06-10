@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Project } from 'src/_shared/entities';
 import { Repository } from 'typeorm';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
-import { Project } from './entities/project.entity';
 
 @Injectable()
 export class ProjectsService {
@@ -17,7 +17,7 @@ export class ProjectsService {
   }
 
   async findAll(): Promise<Project[]> {
-    return await this.projectsRepository.find();
+    return await this.projectsRepository.find({ loadRelationIds: true });
   }
 
   async findOne(id: number): Promise<Project> {
