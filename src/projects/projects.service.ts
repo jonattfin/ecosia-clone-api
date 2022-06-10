@@ -17,7 +17,7 @@ export class ProjectsService {
   }
 
   async findAll(): Promise<Project[]> {
-    return await this.projectsRepository.find({ loadRelationIds: true });
+    return await this.projectsRepository.find();
   }
 
   async findOne(id: number): Promise<Project> {
