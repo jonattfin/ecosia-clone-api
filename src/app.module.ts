@@ -4,7 +4,15 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProjectsModule } from './projects/projects.module';
 import { TagsModule } from './tags/tags.module';
-import { Project, Tag } from './_shared/entities';
+import {
+  Country,
+  Investment,
+  Project,
+  Report,
+  ReportToCountry,
+  ReportToInvestment,
+  Tag,
+} from './_shared/entities';
 import { ReportsModule } from './reports/reports.module';
 
 @Module({
@@ -15,7 +23,15 @@ import { ReportsModule } from './reports/reports.module';
       type: 'mysql',
       port: 3306,
       ...getConnection(),
-      entities: [Tag, Project],
+      entities: [
+        Tag,
+        Project,
+        Report,
+        Investment,
+        Country,
+        ReportToCountry,
+        ReportToInvestment,
+      ],
       synchronize: true,
     }),
     ReportsModule,

@@ -4,6 +4,8 @@ import {
   PrimaryGeneratedColumn,
   ManyToMany,
   JoinTable,
+  OneToMany,
+  ManyToOne,
 } from 'typeorm';
 
 @Entity()
@@ -23,7 +25,7 @@ export class Project {
   @Column()
   imageUrl: string;
 
-  @ManyToMany((type) => Tag, (tag) => tag.projects)
+  @ManyToMany(() => Tag, (tag) => tag.projects)
   tags: Tag[];
 }
 
@@ -38,9 +40,90 @@ export class Tag {
   @Column()
   subtitle: string;
 
-  @ManyToMany((type) => Project, (project) => project.tags, {
+  @ManyToMany(() => Project, (project) => project.tags, {
     cascade: true,
   })
   @JoinTable()
   projects: Project[];
+}
+
+@Entity()
+export class Report {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
+  month: string;
+
+  @OneToMany(() => ReportToInvestment, (item) => item.report)
+  reportToInvestments: ReportToInvestment[];
+
+  @OneToMany(() => ReportToCountry, (item) => item.report)
+  reportToCountries: ReportToCountry[];
+}
+
+@Entity()
+export class Investment {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
+  name: string;
+
+  @OneToMany(() => ReportToInvestment, (item) => item.report)
+  public investmentToReport!: ReportToInvestment[];
+}
+
+@Entity()
+export class Country {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
+  name: string;
+
+  @OneToMany(() => ReportToCountry, (item) => item.report)
+  public countryToReport!: ReportToCountry[];
+}
+
+@Entity()
+export class ReportToInvestment {
+  @PrimaryGeneratedColumn()
+  public reportToInvestmentId!: number;
+
+  @Column()
+  public reportId!: number;
+
+  @Column()
+  public investmentId!: number;
+
+  @Column()
+  public value!: number;
+
+  @ManyToOne(() => Report, (report) => report.reportToInvestments)
+  public report!: Report;
+
+  @ManyToOne(() => Investment, (investment) => investment.investmentToReport)
+  public investment!: Investment;
+}
+
+@Entity()
+export class ReportToCountry {
+  @PrimaryGeneratedColumn()
+  public reportToCountryId!: number;
+
+  @Column()
+  public reportId!: number;
+
+  @Column()
+  public countryId!: number;
+
+  @Column()
+  public value!: number;
+
+  @ManyToOne(() => Report, (report) => report.reportToCountries)
+  public report!: Report;
+
+  @ManyToOne(() => Country, (country) => country.countryToReport)
+  public country!: Country;
 }

@@ -1,91 +1,65 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Country, Investment, Report } from 'src/_shared/entities';
+import { Repository } from 'typeorm';
 import { CreateReportDto } from './dto/create-report.dto';
+import { KeyValuePair, ReportDto } from './dto/report-dto';
 import { UpdateReportDto } from './dto/update-report.dto';
 
 @Injectable()
 export class ReportsService {
+  constructor(
+    @InjectRepository(Report)
+    private reportsRepository: Repository<Report>,
+    @InjectRepository(Country)
+    private countriesRepository: Repository<Country>,
+    @InjectRepository(Investment)
+    private investmentsRepository: Repository<Investment>,
+  ) {}
+
   create(createReportDto: CreateReportDto) {
     return 'This action adds a new report';
   }
 
-  findAll() {
-    return getReports();
+  async findAll(): Promise<ReportDto[]> {
+    var reports = await this.reportsRepository.find({
+      relations: {
+        reportToCountries: true,
+        reportToInvestments: true,
+      },
+    });
+
+    var allCountries = await this.countriesRepository.find();
+    var allInvestments = await this.investmentsRepository.find();
+
+    return reports.map((report) => {
+      var investments: KeyValuePair[] = [];
+      report.reportToInvestments.forEach((r) => {
+        var name = allInvestments.find((i) => i.id === r.investmentId)?.name;
+        investments.push(new KeyValuePair(name, r.value));
+      });
+
+      var countries: KeyValuePair[] = [];
+      report.reportToCountries.forEach((r) => {
+        var name = allCountries.find((c) => c.id === r.countryId)?.name;
+        countries.push(new KeyValuePair(name, r.value));
+      });
+
+      return new ReportDto(report.month, investments, countries);
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} report`;
+  async findOne(id: number): Promise<Report> {
+    return await this.reportsRepository.findOne({
+      where: { id },
+    });
   }
 
   update(id: number, updateReportDto: UpdateReportDto) {
     return `This action updates a #${id} report`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} report`;
+  async remove(id: number): Promise<void> {
+    await this.reportsRepository.delete(id);
   }
-}
-
-function getReports() {
-  return [
-    {
-      month: "April 2022",
-      totalIncome: 2000 * 1000,
-      financedTrees: 1000 * 1000,
-      items: [
-        { key: "trees", value: 1000 },
-        { key: "green-investments", value: 250 },
-        { key: "taxes-and-social-security", value: 200 },
-        { key: "spreading the word", value: 100 },
-        { key: "operational-costs", value: 500 },
-      ],
-      countries: [
-        { key: "brazil", value: 10 },
-        { key: "kenya", value: 11 },
-        { key: "tanzania", value: 12 },
-        { key: "rwanda", value: 13 },
-        { key: "mexico", value: 14 },
-        { key: "thailand", value: 15 },
-      ],
-    },
-    {
-      month: "March 2022",
-      totalIncome: 2000 * 100,
-      financedTrees: 1000 * 100,
-      items: [
-        { key: "trees", value: 400 },
-        { key: "green-investments", value: 25 },
-        { key: "taxes-and-social-security", value: 20 },
-        { key: "spreading the word", value: 10 },
-        { key: "operational-costs", value: 50 },
-      ],
-      countries: [
-        { key: "brazil", value: 1 },
-        { key: "kenya", value: 2 },
-        { key: "tanzania", value: 3 },
-        { key: "rwanda", value: 4 },
-        { key: "mexico", value: 5 },
-        { key: "thailand", value: 6 },
-      ],
-    },
-    {
-      month: "February 2022",
-      totalIncome: 2000 * 1000,
-      financedTrees: 1000 * 1000,
-      items: [
-        { key: "trees", value: 1000 },
-        { key: "green-investments", value: 250 },
-        { key: "taxes-and-social-security", value: 200 },
-        { key: "spreading the word", value: 100 },
-        { key: "operational-costs", value: 500 },
-      ],
-      countries: [
-        { key: "brazil", value: 10 },
-        { key: "kenya", value: 11 },
-        { key: "tanzania", value: 12 },
-        { key: "rwanda", value: 13 },
-        { key: "mexico", value: 14 },
-        { key: "thailand", value: 15 },
-      ],
-    },
-  ];
 }
