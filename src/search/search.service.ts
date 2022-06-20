@@ -12,8 +12,8 @@ export class SearchService {
     return ['a', 'b', 'c', 'd'];
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} search`;
+  findOne(id: string) {
+    return ['a', 'b', 'c', 'd'].map((item) => `${item} ${id}`);
   }
 
   update(id: number, updateSearchDto: UpdateSearchDto) {
