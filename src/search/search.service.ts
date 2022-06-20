@@ -13,7 +13,11 @@ export class SearchService {
   }
 
   findOne(id: string) {
-    return ['a', 'b', 'c', 'd'].map((item) => `${item} ${id}`);
+    return ['a', 'b', 'c', 'd'].map(item => ({
+      url: 'www.site.com',
+      snippet: item + ' bla bla bla',
+      name: item
+    }));
   }
 
   update(id: number, updateSearchDto: UpdateSearchDto) {
