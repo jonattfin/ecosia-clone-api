@@ -18,6 +18,7 @@ import { ReportsModule } from './reports/reports.module';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { HealthModule } from './health/health.module';
+import { SearchModule } from './search/search.module';
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { HealthModule } from './health/health.module';
       limit: 10,
     }),
     HealthModule,
+    SearchModule,
   ],
   controllers: [AppController],
   providers: [
@@ -62,3 +64,4 @@ function getConnection() {
     database: process.env.DB_DATABASE,
   };
 }
+
