@@ -18,7 +18,7 @@ export class SearchService {
     return range(1, 25).map(() => {
       const randomNumber = random(100, 1000);
       return {
-        url: 'www.site.com',
+        url: `https://duckduckgo.com/?q=${id}`,
         snippet: `${id} ${randomNumber}`,
         name: `${id} ${randomNumber}`,
       };
