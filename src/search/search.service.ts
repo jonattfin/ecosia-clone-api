@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import _ from 'lodash';
+import { random, range } from 'lodash';
 
 import { CreateSearchDto } from './dto/create-search.dto';
 import { UpdateSearchDto } from './dto/update-search.dto';
@@ -15,12 +15,12 @@ export class SearchService {
   }
 
   findOne(id: string) {
-    return ['a', 'b', 'c', 'd'].map((item) => {
-      const randomNumber = _.random(100, 1000);
+    return range(1, 25).map(() => {
+      const randomNumber = random(100, 1000);
       return {
         url: 'www.site.com',
-        snippet: `${id} ${item} ${randomNumber}`,
-        name: `${id} ${item} ${randomNumber}`,
+        snippet: `${id} ${randomNumber}`,
+        name: `${id} ${randomNumber}`,
       };
     });
   }
