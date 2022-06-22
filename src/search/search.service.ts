@@ -15,7 +15,8 @@ export class SearchService {
   }
 
   findOne(id: string) {
-    return range(1, 25).map(() => {
+    const numberOfElements = random(100, 1000);
+    return range(1, numberOfElements).map(() => {
       const randomNumber = random(100, 1000);
       return {
         url: `https://duckduckgo.com/?q=${id}`,
