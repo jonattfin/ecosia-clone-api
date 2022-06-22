@@ -22,26 +22,26 @@ export class ReportsService {
   }
 
   async findAll(): Promise<ReportDto[]> {
-    var reports = await this.reportsRepository.find({
+    const reports = await this.reportsRepository.find({
       relations: {
         reportToCountries: true,
         reportToInvestments: true,
       },
     });
 
-    var allCountries = await this.countriesRepository.find();
-    var allInvestments = await this.investmentsRepository.find();
+    const allCountries = await this.countriesRepository.find();
+    const allInvestments = await this.investmentsRepository.find();
 
     return reports.map((report) => {
-      var investments: KeyValuePair[] = [];
+      const investments: KeyValuePair[] = [];
       report.reportToInvestments.forEach((r) => {
-        var name = allInvestments.find((i) => i.id === r.investmentId)?.name;
+        const name = allInvestments.find((i) => i.id === r.investmentId)?.name;
         investments.push(new KeyValuePair(name, r.value));
       });
 
-      var countries: KeyValuePair[] = [];
+      const countries: KeyValuePair[] = [];
       report.reportToCountries.forEach((r) => {
-        var name = allCountries.find((c) => c.id === r.countryId)?.name;
+        const name = allCountries.find((c) => c.id === r.countryId)?.name;
         countries.push(new KeyValuePair(name, r.value));
       });
 
