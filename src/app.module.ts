@@ -1,5 +1,7 @@
 import { CacheInterceptor, CacheModule, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ThrottlerModule } from '@nestjs/throttler';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -15,10 +17,9 @@ import {
   Tag,
 } from './_shared/entities';
 import { ReportsModule } from './reports/reports.module';
-import { ThrottlerModule } from '@nestjs/throttler';
-import { APP_INTERCEPTOR } from '@nestjs/core';
 import { HealthModule } from './health/health.module';
 import { SearchModule } from './search/search.module';
+import { EventsModule } from './events/events.module';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { SearchModule } from './search/search.module';
     }),
     HealthModule,
     SearchModule,
+    EventsModule,
   ],
   controllers: [AppController],
   providers: [
@@ -64,5 +66,6 @@ function getConnection() {
     database: process.env.DB_DATABASE,
   };
 }
+
 
 
