@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { WebSocketServer, WsResponse } from '@nestjs/websockets';
-import { from, interval, map, Observable } from 'rxjs';
+import { interval, map, Observable } from 'rxjs';
 import { Server } from 'socket.io';
 
 import { CreateEventDto } from './dto/create-event.dto';
@@ -13,7 +13,7 @@ export class EventsService {
 
   private counterInterval = interval(5000);
 
-  create(createEventDto: CreateEventDto) {
+  create(_createEventDto: CreateEventDto) {
     console.log('create');
     return 'This action adds a new event';
   }
@@ -29,7 +29,7 @@ export class EventsService {
     return `This action returns a #${id} event`;
   }
 
-  update(id: number, updateEventDto: UpdateEventDto) {
+  update(id: number, _updateEventDto: UpdateEventDto) {
     console.log('update');
     return `This action updates a #${id} event`;
   }

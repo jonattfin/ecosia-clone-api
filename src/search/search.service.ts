@@ -6,7 +6,7 @@ import { UpdateSearchDto } from './dto/update-search.dto';
 
 @Injectable()
 export class SearchService {
-  create(createSearchDto: CreateSearchDto) {
+  create(_createSearchDto: CreateSearchDto) {
     return 'This action adds a new search';
   }
 
@@ -26,7 +26,7 @@ export class SearchService {
     });
   }
 
-  update(id: number, updateSearchDto: UpdateSearchDto) {
+  update(id: number, _updateSearchDto: UpdateSearchDto) {
     return `This action updates a #${id} search`;
   }
 

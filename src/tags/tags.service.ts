@@ -14,19 +14,19 @@ export class TagsService {
     private tagsRepository: Repository<Tag>,
   ) {}
 
-  create(createTagDto: CreateTagDto) {
+  create(_createTagDto: CreateTagDto) {
     return 'This action adds a new tag';
   }
 
   async findAll(): Promise<Tag[]> {
-    return await this.tagsRepository.find();
+    return this.tagsRepository.find();
   }
 
   async findOne(id: number): Promise<Tag> {
-    return await this.tagsRepository.findOneBy({ id });
+    return this.tagsRepository.findOneBy({ id });
   }
 
-  update(id: number, updateTagDto: UpdateTagDto) {
+  update(id: number, _updateTagDto: UpdateTagDto) {
     return `This action updates a #${id} tag`;
   }
 
@@ -34,29 +34,3 @@ export class TagsService {
     await this.tagsRepository.delete(id);
   }
 }
-
-// const tags: Tag[] = [
-//   {
-//     id: 1,
-//     title: 'Partners',
-//     subtitle: 'Prince of Songkhla University/Einhorn',
-//   },
-//   { id: 2, title: 'Wildlife protected', subtitle: 'updating' },
-//   {
-//     id: 3,
-//     title: 'Challenges',
-//     subtitle: 'global demand for rubber at competetitive prices',
-//   },
-//   {
-//     id: 4,
-//     title: 'Wildlife protected',
-//     subtitle:
-//       'Coopers Mountain Squirrel, Bannerman’s Turaco, Bamenda Pririt, Cross River gorillas, Nigeria-Cameroon chimpanzees',
-//   },
-//   {
-//     id: 5,
-//     title: 'Main threats',
-//     subtitle:
-//       'Poaching, deforestation, bush fires, poor farming practices, urbanization',
-//   },
-// ];

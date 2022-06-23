@@ -17,7 +17,7 @@ export class ReportsService {
     private investmentsRepository: Repository<Investment>,
   ) {}
 
-  create(createReportDto: CreateReportDto) {
+  create(_createReportDto: CreateReportDto) {
     return 'This action adds a new report';
   }
 
@@ -50,12 +50,12 @@ export class ReportsService {
   }
 
   async findOne(id: number): Promise<Report> {
-    return await this.reportsRepository.findOne({
+    return this.reportsRepository.findOne({
       where: { id },
     });
   }
 
-  update(id: number, updateReportDto: UpdateReportDto) {
+  update(id: number, _updateReportDto: UpdateReportDto) {
     return `This action updates a #${id} report`;
   }
 
