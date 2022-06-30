@@ -23,6 +23,18 @@ export class Project {
   desc: string;
 
   @Column()
+  title: string;
+
+  @Column()
+  treesPlanted: string;
+
+  @Column()
+  hectaresRestored: string;
+
+  @Column()
+  yearSince: string;
+
+  @Column()
   imageUrl: string;
 
   @ManyToMany(() => Tag, (tag) => tag.projects)
@@ -54,6 +66,9 @@ export class Report {
 
   @Column()
   month: string;
+
+  @Column()
+  year: number;
 
   @OneToMany(() => ReportToInvestment, (item) => item.report)
   reportToInvestments: ReportToInvestment[];

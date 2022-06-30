@@ -66,6 +66,3 @@ function getConnection() {
     database: process.env.DB_DATABASE,
   };
 }
-
-
-

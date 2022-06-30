@@ -45,7 +45,7 @@ export class ReportsService {
         countries.push(new KeyValuePair(name, r.value));
       });
 
-      return new ReportDto(report.month, investments, countries);
+      return new ReportDto(report.month, report.year, investments, countries);
     });
   }
 
