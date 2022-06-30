@@ -38,7 +38,7 @@ import { EventsModule } from './events/events.module';
         ReportToCountry,
         ReportToInvestment,
       ],
-      synchronize: true,
+      // synchronize: true,
     }),
     ReportsModule,
     CacheModule.register(),
