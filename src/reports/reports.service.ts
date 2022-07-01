@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Country, Investment, Report } from 'src/_shared/entities';
 import { Repository } from 'typeorm';
-import _ from 'lodash';
+import { head } from 'lodash'
 
 import { CreateReportDto } from './dto/create-report.dto';
 import { KeyValuePair, ReportDto } from './dto/report-dto';
@@ -43,7 +43,7 @@ export class ReportsService {
       },
     });
 
-    return _.head(await this.mapInvestmentsAndCountries([report]));
+    return head(await this.mapInvestmentsAndCountries([report]));
   }
 
   update(id: number, _updateReportDto: UpdateReportDto) {
